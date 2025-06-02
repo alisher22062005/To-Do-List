@@ -1,4 +1,4 @@
-import bin from "../../assets/icon.png";
+import bin from "../../assets/Icon.png";
 import check from "../../assets/Library add check.png";
 export default function MenuDefault({
   list,

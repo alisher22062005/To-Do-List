@@ -1,4 +1,5 @@
 import icon from "../../assets/Icon Menu.png";
+
 export default function Task({ task, doneTask, trashListisClicked }) {
   // const [checked,setchecked]=useState(true)
 
