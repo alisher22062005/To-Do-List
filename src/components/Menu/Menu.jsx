@@ -45,7 +45,7 @@ export default function Menu() {
       );
 
       setCurrentList(newArray);
-      console.log(currentList, "Current list");
+      // console.log(currentList, "Current list");
     } else if (list == "Trash") {
       setToDoListisClicked(false);
       setTrashListisClicked(true);
@@ -66,6 +66,21 @@ export default function Menu() {
     }
   }
   function addTask() {
+    if (currentTask == "") {
+      setCurrentTask("");
+      alert("The Input is empty, try again!");
+      return;
+    }
+
+    const existedTask = arrayToDoList.find(
+      (item) => item.name.toLowerCase() == currentTask.trim().toLowerCase()
+    );
+    if (existedTask) {
+      setCurrentTask("");
+      alert("This task already existed!");
+
+      return;
+    }
     const newTask = { name: currentTask, done: false, deleted: false };
     let newArray;
 
@@ -106,8 +121,8 @@ export default function Menu() {
 
   const deleteTask = () => {
     const array = currentList.filter((item) => item.done);
-    console.log(array, "array");
-    console.log(arrayToDoList, "arrayToDo");
+    // console.log(array, "array");
+    // console.log(arrayToDoList, "arrayToDo");
     const newArray = arrayToDoList.map((item1) => {
       const match = array.find((item2) => item1.name == item2.name);
       return match ? { ...item1, done: false, deleted: true } : item1;
@@ -152,22 +167,24 @@ export default function Menu() {
 
   return (
     <>
-      <div className="flex  ml-[10%] mt-[10%] font-[Inter] gap-[15%]  ">
-        <div className="flex flex-col gap-[7rem] ">
+      <div className="flex  ml-[10%] mt-[10%] font-[Inter] gap-[15%] ">
+        <div className="sm:flex sm:flex-col sm:gap-[7rem] xs:flex xs:gap-[3rem] xs:flex-col ">
           <div className="flex flex-col gap-[2rem]">
-            <div className="text-[2.5rem] font-bold">Simple To Do List</div>
-            <div>
+            <div className="sm:text-[2.5rem] sm:flex sm:justify-start font-bold xs:text-[1.8rem] xs:flex  xs:justify-center ">
+              Simple To Do List
+            </div>
+            <div className="xs:text-center sm:text-start">
               Today is awesome day. The weather is awesome, you are awesome too!
             </div>
           </div>
-          <div className="flex gap-[2rem]">
+          <div className="sm:flex gap-[2rem]  xs:flex xs:gap-[1rem] xs:justify-center sm:flex sm:justify-start  ">
             <button
               onClick={() => handleCurrentList("To Do")}
               //   className="w-[20%] bg-red-300 rounded-[9999px] p-[2%]"
               className={
                 toDoListisClicked
-                  ? "w-[20%] bg-[#081E346B] rounded-[9999px] p-[2%]"
-                  : "w-[20%] bg-[#F0F0F0] rounded-[9999px] p-[2%]"
+                  ? "w-[20%] bg-[#081E346B] rounded-[9999px] p-[2%] xs:w-[25%]"
+                  : "w-[20%] bg-[#F0F0F0] rounded-[9999px] p-[2%] xs:w-[25%]"
               }
             >
               To Do
@@ -176,8 +193,8 @@ export default function Menu() {
               onClick={() => handleCurrentList("Done")}
               className={
                 doneListisClicked
-                  ? "w-[20%] bg-[#081E346B] rounded-[9999px] p-[2%]"
-                  : "w-[20%] bg-[#F0F0F0] rounded-[9999px] p-[2%]"
+                  ? "w-[20%] bg-[#081E346B] rounded-[9999px] p-[2%] xs:w-[25%]"
+                  : "w-[20%] bg-[#F0F0F0] rounded-[9999px] p-[2%] xs:w-[25%]"
               }
             >
               Done
@@ -186,21 +203,21 @@ export default function Menu() {
               onClick={() => handleCurrentList("Trash")}
               className={
                 trashListisClicked
-                  ? "w-[20%] bg-[#081E346B] rounded-[9999px] p-[2%]"
-                  : "w-[20%] bg-[#F0F0F0] rounded-[9999px] p-[2%]"
+                  ? "w-[20%] bg-[#081E346B] rounded-[9999px] p-[2%] xs:w-[25%] "
+                  : "w-[20%] bg-[#F0F0F0] rounded-[9999px] p-[2%] xs:w-[25%]"
               }
             >
               Trash
             </button>
           </div>
         </div>
-        <div className="flex gap-[1rem] ">
+        <div className="sm:flex gap-[1rem] xs:hidden">
           {typeWindowisClicked && (
             <div className="flex flex-col gap-[1.5rem] rounded-[0.5rem]  bg-[#E4E6E7] p-[5%]">
               <div className="flex items-center ">Add New To Do</div>
-              <div className=" ">
+              <div>
                 <textarea
-                  placeholder="Type..."
+                  placeholder="Type New Task..."
                   // defaultValue="Type..."
                   rows={4}
                   cols={40}
@@ -220,7 +237,7 @@ export default function Menu() {
             </div>
           )}
 
-          <div className="flex flex-col-reverse  ">
+          <div className="flex flex-col-reverse min-[320px]:hidden min-[640px]:flex ">
             <button
               onClick={handleTypeWindowButton}
               className="w-[4rem] bg-black rounded-[50%] p-[3%] text-[2rem] text-white"
@@ -230,6 +247,23 @@ export default function Menu() {
           </div>
         </div>
       </div>
+      <div className="sm:hidden  xs:mt-[5%] xs:p-[3%] xs:ml-[14%] xs:w-[75%] xs:flex  xs:gap-[0.3rem]">
+        <textarea
+          placeholder="Type New Task..."
+          rows={1}
+          value={currentTask}
+          onChange={(e) => setCurrentTask(e.target.value)}
+          cols={10}
+          className="xs:w-[100%] xs:p-[3%] xs:rounded-[1rem] xs:border-grey-300 xs:border-2 "
+        ></textarea>
+        <div></div>
+      </div>
+      <button
+        onClick={addTask}
+        className=" sm:hidden xs:bg-black xs:text-white xs:w-[20%]  xs:rounded-[9999px] xs:ml-[40%] xs:mt-[3%] xs:p-[2%]"
+      >
+        Add
+      </button>
       <div className="border-b-blue-500 ml-[10%] mt-[3%] flex flex-col gap-[2rem]">
         <div className="font-medium text-[2rem]    ">{currentButton}</div>
         <hr className="border-2 w-[90%]"></hr>
