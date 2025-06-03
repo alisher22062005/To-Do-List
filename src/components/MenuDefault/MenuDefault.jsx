@@ -16,7 +16,7 @@ export default function MenuDefault({
       {toDoListisClicked && atLeastOneClick() && (
         <button
           onClick={deleteTask}
-          className="sm:ml-[8%] sm:mt-[1%] sm:p-[0] sm:flex sm:justify-start sm:gap-[1rem] bg-[#E4E6E7] sm:w-[20%] xs:w-[50%] xs:p-[2%] xs:mt-[2%]  rounded-[1rem]  sm:pt-[1%] sm:pb-[1%]   font-[Inter] font-medium"
+          className="sm:ml-[8%] sm:mt-[1%] sm:p-[0] sm:flex sm:justify-start sm:gap-[1rem] bg-[#E4E6E7] sm:w-[20%] xs:flex xs:gap-[0.6rem] xs:w-[50%] xs:p-[2%] xs:mt-[2%]  rounded-[1rem]  sm:pt-[1%] sm:pb-[1%]   font-[Inter] font-medium"
         >
           {" "}
           <span>
@@ -27,7 +27,7 @@ export default function MenuDefault({
         </button>
       )}
       {trashListisClicked && atLeastOneClick() && (
-        <div className="sm:ml-[8%] sm:mt-[1%] flex flex-col gap-[1rem] bg-[#E4E6E7] sm:w-[22%] xs:w-[65%] xs:mt-[2%]   rounded-[1rem]  sm:pt-[1%] sm:pb-[1%]  justify-start font-[Inter] font-medium">
+        <div className="sm:ml-[8%] sm:mt-[1%] flex flex-col gap-[1rem] bg-[#E4E6E7] sm:w-[22%] xs:w-[65%] xs:mt-[2%] xs:p-[2%] xs:gap-[0.5rem] xs:justify-center  rounded-[1rem]  sm:pt-[1%] sm:pb-[1%]  justify-start font-[Inter] font-medium">
           <button onClick={deleteForever} className="flex gap-[0.8rem]">
             {" "}
             <span>
